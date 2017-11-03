@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-//import SubComponent from './SubComponent';
+//import SubComponent from '../SubComponent';
 import _ from 'lodash';
-import FunctionalSubComponent from './FunctionalSubComponent';
+import FunctionalSubComponent from '../src/components/mainscreen';
 class App extends Component {
  constructor(){
    super();
@@ -34,6 +34,8 @@ class App extends Component {
       }
     ]
     
+   
+    
    }// checks for current state
   this.deleteMessage= this.deleteMessage.bind(this);
  }
@@ -43,6 +45,8 @@ class App extends Component {
   this.setState({
     data : newData
   });
+  // this.state.data = newData;
+  // console.log(newData);
  }
   render() {
     let filteredApts = this.state.data;//variable declared to get data

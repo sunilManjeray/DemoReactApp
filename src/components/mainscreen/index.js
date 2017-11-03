@@ -8,7 +8,7 @@ const  FunctionalSubComponent = function(props)  {
 <li className="media-body">
   <div><button onClick = {() => handleDelete(props)}>delete</button></div>
 <div>
-<span>{props.itemName.petName} </span>
+<span>{props.itemName.petName}</span>
 <span>{props.itemName.aptDate}</span>
 </div>
 <div>
