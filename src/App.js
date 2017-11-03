@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 //import SubComponent from '../SubComponent';
 import _ from 'lodash';
+import AddAppointment from "../src/components/adddata"
 import FunctionalSubComponent from '../src/components/mainscreen';
 class App extends Component {
  constructor(){
@@ -32,12 +33,28 @@ class App extends Component {
         "aptDate": "2016-06-21 9:15",
         "aptNotes": "Cat has excessive hairballs"
       }
-    ]
+    ],
+    formVisibility : false
     
    
     
    }// checks for current state
   this.deleteMessage= this.deleteMessage.bind(this);
+  this.addItem= this.addItem.bind(this);
+  this.AddToggleDisplay = this.AddToggleDisplay.bind(this);
+ }
+ AddToggleDisplay(){
+   var tempFormVisibility = !this.state.formVisibility;
+   this.setState({
+     formVisibility : tempFormVisibility
+   })
+ }
+ addItem(tempItem){
+   var tempApt = this.state.data;
+   tempApt.push(tempItem);
+   this.setState({
+     data : tempApt
+   })
  }
  deleteMessage(item){
    var allData = this.state.data;
@@ -68,8 +85,12 @@ class App extends Component {
       <div className="App">
         
          {/* <h1 style={displayProperty}>{title} {this.state.title} </h1> */}
-         <div className="item-list media-list">
-           <ul className="item-list media-list" >
+         <AddAppointment 
+          bodyVisible = { this.state.formVisibility }
+          handleToggle = { this.AddToggleDisplay }
+          addApt = { this.addItem }/>
+         <div>
+           <ul >
             {filteredApts}
               </ul>
 
