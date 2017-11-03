@@ -4,6 +4,7 @@ import './App.css';
 import _ from 'lodash';
 import AddAppointment from "../src/components/adddata"
 import FunctionalSubComponent from '../src/components/mainscreen';
+import SearchData from '../src/components/searchdata';
 class App extends Component {
  constructor(){
    super();
@@ -34,7 +35,10 @@ class App extends Component {
         "aptNotes": "Cat has excessive hairballs"
       }
     ],
-    formVisibility : false
+    formVisibility : false,
+    orderBy : "petName",
+    orderDirec : "asc",
+    queryText : ""
     
    
     
@@ -42,6 +46,7 @@ class App extends Component {
   this.deleteMessage= this.deleteMessage.bind(this);
   this.addItem= this.addItem.bind(this);
   this.AddToggleDisplay = this.AddToggleDisplay.bind(this);
+  this.searchApp = this.searchApp.bind(this);
  }
  AddToggleDisplay(){
    var tempFormVisibility = !this.state.formVisibility;
@@ -63,8 +68,31 @@ class App extends Component {
     data : newData
   });
  }
+ searchApp(query){
+  this.setState({
+  queryText : query
+  });
+ }
   render() {
-    let filteredApts = this.state.data;//variable declared to get data
+    let filteredApts = [];//variable declared to get data
+    let orderBy = this.state.orderBy;
+    let orderDirec = this.state.orderDirec;
+    let queryText = this.state.queryText;
+    let appointments = this.state.data;
+    appointments.forEach(function(item){
+      if ((item.petName.toLowerCase().indexOf(queryText) !== -1) || 
+      (item.aptDate.toLowerCase().indexOf(queryText) !== -1) ||
+      (item.aptNotes.toLowerCase().indexOf(queryText) !== -1) ||
+      (item.ownerName.toLowerCase().indexOf(queryText) !== -1) )
+      {
+        filteredApts.push(item);
+      }
+
+
+    });
+    filteredApts = _.orderBy(filteredApts,function(item){
+      return item[orderBy].toLowerCase();
+    },orderDirec);//orderBy
     filteredApts = filteredApts.map(function(item,index){ //map function to load data and return sub component
       return(
       <FunctionalSubComponent key = { index } itemName = { item } whichItem = { item } onDelete = {this.deleteMessage} />
@@ -87,13 +115,13 @@ class App extends Component {
           bodyVisible = { this.state.formVisibility }
           handleToggle = { this.AddToggleDisplay }
           addApt = { this.addItem }/>
-         <div>
-           <ul >
+         <SearchData 
+         orderBy = {this.state.orderBy}
+         orderDirec = {this.state.orderDirec}
+         onSearch = { this.searchApp }/>
+          <ul >
             {filteredApts}
-              </ul>
-
-          
-      </div>
+          </ul>
   
       </div>
     );
