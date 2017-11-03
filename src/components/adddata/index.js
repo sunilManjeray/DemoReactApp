@@ -58,7 +58,7 @@ export default class AddAppointment extends Component {
 
       </div>
       <div className="form-group">
-        <label className="col-sm-2 control-label" htmlFor="aptNotes">Apt. Notes</label>
+        <label className="col-sm-2 control-label" htmlFor="aptNotes">Apt.  Notes</label>
         <div className="col-sm-10">
           <textarea className="form-control" rows="4" cols="50"
             id="aptNotes" ref="inputAptNotes" placeholder="Appointment Notes"></textarea>

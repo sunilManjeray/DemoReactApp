@@ -62,8 +62,6 @@ class App extends Component {
   this.setState({
     data : newData
   });
-  // this.state.data = newData;
-  // console.log(newData);
  }
   render() {
     let filteredApts = this.state.data;//variable declared to get data
